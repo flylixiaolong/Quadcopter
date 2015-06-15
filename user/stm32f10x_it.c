@@ -173,12 +173,29 @@ void ADC1_2_IRQHandler(void)
 {
 }*/
 
-/**
-  * @}
-  */ 
+#include "usart.h"
 
-/**
-  * @}
-  */ 
+void USART1_IRQHandler(void)  //串口中断函数
+{
+	usart_irq();
+}
+
+#include "timer.h"
+#include "MPU6050.h"
+#include "commu.h"
+#include "imu.h"
+
+extern Vector_XYZ acc,gyr;
+extern u8 flag_update;
+
+
+void TIM2_IRQHandler(void)		//1ms中断一次
+{
+	if(TIM2->SR & TIM_IT_Update)		//if ( TIM_GetITStatus(TIM3 , TIM_IT_Update) != RESET ) 
+	{     
+		TIM2->SR = ~TIM_FLAG_Update;//TIM_ClearITPendingBit(TIM3 , TIM_FLAG_Update);   //清除中断标志
+		flag_update = 1;
+	}
+}
 
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/

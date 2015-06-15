@@ -31,6 +31,8 @@
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 
+extern u8 flg_get_senor_data;
+
 void NMI_Handler(void);
 void HardFault_Handler(void);
 void MemManage_Handler(void);
